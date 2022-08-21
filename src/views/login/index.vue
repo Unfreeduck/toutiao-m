@@ -1,25 +1,31 @@
 <template>
   <div class="login-container">
     <!-- 导航栏 -->
-    <van-nav-bar class="page-nav-bar" title="登录" />
+    <van-nav-bar class="page-nav-bar">
+      <van-icon slot="left" name="arrow-left" @click="$router.back()" />
+    </van-nav-bar>
 
+    <!-- text -->
+    <div class="text">短信登录</div>
+    <!-- /text -->
     <!-- 登录表单 -->
-    <van-form ref="loginForm" @submit="onSubmit">
-      <van-field v-model="user.mobile" name="mobile" placeholder="请输入手机号" :rules="userFormRules.mobile" type="number" maxlength="11">
-        <i class="toutiao toutiao-shouji" slot="left-icon"></i>
-      </van-field>
-      <van-field v-model="user.code" name="code" placeholder="请输入验证码" :rules="userFormRules.code" type="number" maxlength="6">
-        <i class="toutiao toutiao-yanzhengma" slot="left-icon"></i>
-        <template #button>
-          <van-count-down :time="1000*60" format="ss s" v-if="isCountDownShow" @finish="isCountDownShow=false" />
-          <van-button v-else native-type="button" class="send-sms-btn" size="small" round type="default" @click="onSendSms">发送验证码</van-button>
-        </template>
-      </van-field>
+    <div class="login">
+      <van-form ref="loginForm" @submit="onSubmit">
+        <van-field class="login-input" v-model="user.mobile" name="mobile" placeholder="请输入手机号" :rules="userFormRules.mobile" type="number" maxlength="11">
+        </van-field>
+        <van-field class="login-input" v-model="user.code" name="code" placeholder="请输入验证码" :rules="userFormRules.code" type="number" maxlength="6">
+          <template #button>
+            <van-count-down :time="1000*60" format="ss s" v-if="isCountDownShow" @finish="isCountDownShow=false" />
+            <van-button v-else native-type="button" class="send-sms-btn" size="small" round type="default" @click="onSendSms">发送验证码</van-button>
+          </template>
+        </van-field>
 
-      <div class="login-btn-wrap">
-        <van-button class="login-btn" block type="info" native-type="submit">登录</van-button>
-      </div>
-    </van-form>
+        <div class="login-btn-wrap">
+          <van-button class="login-btn" block type="info" native-type="submit">登录</van-button>
+        </div>
+      </van-form>
+    </div>
+    <!-- /登录表单 -->
   </div>
 
 </template>
@@ -62,6 +68,8 @@ export default {
         const { data } = await login(this.user)
         this.$store.commit('setUser', data.data)
         this.$toast.success('登录成功')
+        // 登录成功跳转
+        this.$router.back()
       } catch (error) {
         if (error.response.status === 400) {
           this.$toast.fail('手机号或者验证码错误')
@@ -99,23 +107,36 @@ export default {
 
 <style lang='less' scoped>
 .login-container {
+  .text {
+    padding: 40px 20px;
+    // background-color: pink;
+    font-size: 24px;
+  }
   .toutiao {
     font-size: 37px;
     color: #666;
   }
-  .send-sms-btn {
-    width: 160px;
-    height: 46px;
-    line-height: 46px;
-    background-color: #ededed;
-    font-size: 22px;
-    color: #666;
-  }
-  .login-btn-wrap {
-    padding: 53px 33px;
-    .login-btn {
-      background-color: #6db4fb;
+  .login {
+    padding: 0 20px;
+    margin-top: 20px;
+    .login-input {
+      padding-left: 10px;
+    }
+    .send-sms-btn {
+      width: 80px;
+      height: 23px;
+      line-height: 23px;
+      // background-color: #ededed;
+      font-size: 12px;
+      color: #666;
       border: none;
+    }
+    .login-btn-wrap {
+      padding: 53px 33px;
+      .login-btn {
+        background-color: #6db4fb;
+        border: none;
+      }
     }
   }
 }

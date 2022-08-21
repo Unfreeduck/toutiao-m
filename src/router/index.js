@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 // 路由表
 const routes = [
+
   {
     path: '/login',
     name: 'login',
@@ -11,11 +12,11 @@ const routes = [
   },
   {
     path: '/',
-    name: 'layout',
     component: () => import('@/views/layout'),
+    // redirect: '/home',
     children: [
       {
-        path: '',
+        path: '/home', // 默认子路由
         name: 'home',
         component: () => import('@/views/home')
       },
