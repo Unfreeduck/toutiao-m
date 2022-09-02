@@ -76,9 +76,6 @@
 .toutiao-shouji:before {
   content: "\e619";
 }
-body {
-  background-color: #fafafa;
-}
 .page-nav-bar .van-nav-bar__title,
 .page-nav-bar .van-icon {
   font-size: 28px;

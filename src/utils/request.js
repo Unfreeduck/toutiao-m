@@ -1,5 +1,7 @@
 import axios from 'axios'
 import store from '@/store'
+import { Notify } from 'vant'
+import router from '@/router'
 
 const request = axios.create({
   baseURL: 'http://toutiao.itheima.net'
@@ -20,4 +22,16 @@ request.interceptors.request.use(function(config) {
   return Promise.reject(error)
 })
 
+// 响应拦截器
+request.interceptors.response.use(function(response) {
+  // 一定要返回
+  return response
+}, function(error) {
+  if (error.response.status === 401) {
+    Notify({ type: 'warning', message: '身份已过期' })
+    router.replace('/login')
+  }
+  // 响应失败，会进入这里
+  return Promise.reject(error)
+})
 export default request

@@ -9,7 +9,7 @@
           <span class="name">{{userInfo.name}}</span>
         </div>
         <div class="right">
-          <van-button size="mini" round>编辑资料</van-button>
+          <van-button size="mini" round to="/myinfo">编辑资料</van-button>
         </div>
       </div>
 
@@ -159,6 +159,10 @@ export default {
           border: 4px solid #fff;
           margin-right: 12px;
         }
+      }
+      .right {
+        display: flex;
+        align-items: center;
       }
     }
     .data-status {
