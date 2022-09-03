@@ -60,7 +60,8 @@ export default {
   height: 100vh;
   .prompt {
     p {
-      padding: 30px 0px 10px 20px;
+      padding: 30px 0px 5px 16px;
+      margin: 0;
       // background-color: pink;
       font-size: 12px;
       color: #b3b3b3;

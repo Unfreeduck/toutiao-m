@@ -12,6 +12,7 @@
         </van-cell>
         <van-cell title="姓名" :value="profileObj.name" is-link @click="changeName" to="/editname" />
         <van-cell title="生日" :value="profileObj.birthday" is-link @click="isShow" />
+        <van-cell title="个性签名" :label="profileObj.intro===null?'暂无签名':profileObj.intro" is-link @click="changeSignature" to="/editsignature" />
       </van-cell-group>
       <van-popup v-model="show" position="bottom" :style="{ height: '45%' }">
         <van-datetime-picker v-model="currentDate" type="date" title="选择年月日" :min-date="minDate" :max-date="maxDate" @cancel="dateCancelFn" @confirm="confirmFn" />
@@ -53,6 +54,9 @@ export default {
     changeName() {
       bus.$emit('sendMyName', this.profileObj.name)
     },
+    changeSignature() {
+      bus.$emit('sendSignature', this.profileObj.intro)
+    },
     isShow() {
       this.show = true
       this.currentDate = new Date(this.profileObj.birthday)
@@ -70,11 +74,22 @@ export default {
   },
   beforeDestroy() {
     this.changeName()
+    this.changeSignature()
   }
 }
 </script>
 
 <style lang='less' scoped>
+/deep/.van-cell::after {
+  border: none;
+}
+.van-hairline--top-bottom::after {
+  border: none;
+}
+.van-hairline-unset--top-bottom::after {
+  border: none;
+}
+
 /deep/ .van-nav-bar__left {
   font-size: 20px;
   .van-icon-arrow-left:before {

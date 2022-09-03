@@ -6,7 +6,10 @@
       <div class="base-info">
         <div class="left">
           <van-image class="avatar" round fit="cover" :src="userInfo.photo" />
-          <span class="name">{{userInfo.name}}</span>
+          <div class="user-info">
+            <span class="name">{{userInfo.name}}</span>
+            <span class="intro">{{userInfo.intro}}</span>
+          </div>
         </div>
         <div class="right">
           <van-button size="mini" round to="/myinfo">编辑资料</van-button>
@@ -102,6 +105,7 @@ export default {
       try {
         const { data } = await getUserInfo()
         this.userInfo = data.data
+        // console.log(this.userInfo)
       } catch (error) {
         this.$toast('获取失败')
       }
@@ -149,9 +153,17 @@ export default {
       .left {
         display: flex;
         align-items: center;
-        .name {
-          font-size: 15px;
-          color: #fff;
+        .user-info {
+          display: flex;
+          flex-direction: column;
+          .name {
+            font-size: 16px;
+            color: #fff;
+          }
+          .intro {
+            font-size: 12px;
+            color: #fff;
+          }
         }
         .avatar {
           width: 66px;
@@ -163,6 +175,9 @@ export default {
       .right {
         display: flex;
         align-items: center;
+        .van-button--default {
+          color: #959595;
+        }
       }
     }
     .data-status {

@@ -44,6 +44,11 @@ const routes = [
     path: '/editname',
     name: 'editname',
     component: () => import('@/views/my/editName.vue')
+  },
+  {
+    path: '/editsignature',
+    name: 'editsignature',
+    component: () => import('@/views/my/editSignature.vue')
   }
 ]
 
